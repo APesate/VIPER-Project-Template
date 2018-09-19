@@ -30,7 +30,7 @@ class RequestDispatcher: RequestDispatcherProtocol {
     
     func dispatch<T: Codable>(request: Request, completion handler: @escaping (Result<T>) -> Void) {
 
-        if useSampleData {
+        guard !useSampleData else {
             if let sample = request.service.sampleData,
                 let response = try? JSONDecoder().decode(T.self, from: sample) {
                 handler(Result.sucess(data: response))
@@ -49,6 +49,7 @@ class RequestDispatcher: RequestDispatcherProtocol {
             if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
                 let message: String = error?.localizedDescription ?? "unknown"
                 handler(Result<T>.failure(error: .error(code: response.statusCode, message: message)))
+                return
             }
 
             guard let data = data, let model = try? JSONDecoder().decode(T.self, from: data) else {
@@ -57,7 +58,6 @@ class RequestDispatcher: RequestDispatcherProtocol {
             }
 
             handler(Result.sucess(data: model))
-
         }
 
     }
