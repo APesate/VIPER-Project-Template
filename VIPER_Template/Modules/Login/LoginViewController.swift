@@ -80,7 +80,7 @@ final class LoginViewController: BaseViewController {
     
     override func setupConstraints() {
         
-        NSLayoutConstraint.activate([
+        view.addConstraints([
             
             headerStackView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: ViewTraits.innerCardPadding),
             headerStackView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -ViewTraits.innerCardPadding),

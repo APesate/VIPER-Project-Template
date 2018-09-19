@@ -61,7 +61,7 @@ final class DashboardViewController: BaseViewController {
     
     override func setupConstraints() {
         
-        NSLayoutConstraint.activate([
+        view.addConstraints([
             
             vStackView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: ViewTraits.innerCardPadding),
             vStackView.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -ViewTraits.innerCardPadding),
